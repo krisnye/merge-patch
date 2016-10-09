@@ -1,6 +1,6 @@
 {
   "name": "merge-patch",
-  "version": "0.0.0",
+  "version": "0.0.2",
   "description": "JSON Merge Patch implementation with diff and combine",
   "main": "index.js",
   "scripts": {
