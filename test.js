@@ -1,5 +1,5 @@
 
-var {patch,diff} = require('./')
+var {apply,diff,combine} = require('./')
 
 function assertEqual(a, b) {
     a = JSON.stringify(a)
@@ -12,17 +12,20 @@ function double(x) {
     return x * 2;
 }
 
-//  patch
-assertEqual({a:{b:2,c:3},d:4}, patch({a:{b:2}}, {a:{c:3},d:4}))
-assertEqual({b:2}, patch(null, {b:2}))
-assertEqual({a:1,b:2}, patch({a:1,b:2,c:3}, {c:undefined}))
-assertEqual({a:double}, patch({},{a:double}))
-assertEqual({a:[]}, patch({a:[1,2]}, {a:[]}))
+//  combine
+assertEqual({c:3}, apply({a:1,b:2,c:3}, combine({a:null}, {b:null})))
+//  apply
+assertEqual(null, apply(undefined, null))
+assertEqual({a:{b:2,c:3},d:4}, apply({a:{b:2}}, {a:{c:3},d:4}))
+assertEqual({b:2}, apply(null, {b:2}))
+assertEqual({a:1,b:2}, apply({a:1,b:2,c:3}, {c:undefined}))
+assertEqual({a:double}, apply({},{a:double}))
+assertEqual({a:[]}, apply({a:[1,2]}, {a:[]}))
 // assigning null on an array just sets null to that index
-assertEqual([1], patch([1,2], {1:null}))
-assertEqual(patch([1,2], {1:null}).length, 1);
-assertEqual(patch({foo:[1,2]}, {foo:{1:null}}).foo.length, 1);
-assertEqual([1], patch([1,2], {1:undefined}))
+assertEqual([1], apply([1,2], {1:null}))
+assertEqual(apply([1,2], {1:null}).length, 1);
+assertEqual(apply({foo:[1,2]}, {foo:{1:null}}).foo.length, 1);
+assertEqual([1], apply([1,2], {1:undefined}))
 // //  diff
 assertEqual({b:2}, diff({a:1}, {a:1,b:2}))
 assertEqual({a:{b:3,c:null}}, diff({a:{b:2,c:4}}, {a:{b:3}}))
@@ -38,7 +41,7 @@ assertEqual(diff([], {}), {length:null})
 assertEqual(diff({}, []), [])
 var start = [1,2,3]
 var delta = diff(start, {foo:"a"})
-var result = patch(start, delta)
+var result = apply(start, delta)
 assertEqual(result, {foo:"a"})
 
 console.log("Tests Passed");
