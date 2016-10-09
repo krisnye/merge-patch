@@ -1,0 +1,26 @@
+{
+  "name": "merge-patch",
+  "version": "0.0.0",
+  "description": "JSON Merge Patch implementation with diff and combine",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/krisnye/merge-patch.git"
+  },
+  "keywords": [
+    "JSON",
+    "merge",
+    "patch",
+    "diff",
+    "combine"
+  ],
+  "author": "Kris Nye",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/krisnye/merge-patch/issues"
+  },
+  "homepage": "https://github.com/krisnye/merge-patch#readme"
+}
